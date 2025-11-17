@@ -76,20 +76,20 @@ class Model:
                 self.__sequenza_ottima = list(sequenza_parziale)
             return
 
+        else:
+            for impianto_id in consumi_settimana.keys():
 
-        for impianto_id in consumi_settimana.keys():
+                costo = costo_corrente
 
-            costo = costo_corrente
+                costo += consumi_settimana[impianto_id][giorno - 1]
 
-            costo += consumi_settimana[impianto_id][giorno - 1]
-
-            if ultimo_impianto is not None and impianto_id != ultimo_impianto:
-                costo += 5
+                if ultimo_impianto is not None and impianto_id != ultimo_impianto:
+                    costo += 5
 
 
-            sequenza_parziale.append(impianto_id)
-            self.__ricorsione(sequenza_parziale, giorno + 1, impianto_id, costo, consumi_settimana)
-            sequenza_parziale.pop()
+                sequenza_parziale.append(impianto_id)
+                self.__ricorsione(sequenza_parziale, giorno + 1, impianto_id, costo, consumi_settimana)
+                sequenza_parziale.pop()
 
     def __get_consumi_prima_settimana_mese(self, mese: int):
         """
